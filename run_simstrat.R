@@ -54,7 +54,7 @@ run_simstratWin <- function(sim_folder,par_file="simstrat.par"){
   if(.Platform$r_arch == 'x64'){
     # JM: hard-coded. Can I do this before creating a package?
     # simstrat_path=system("where Simstrat_v_2_2") this returns 0L, but there is output in the console.
-    simstrat_path="C:/Users/mesman/Documents/Projects/2019/LakeModelEnsembleR/Simstrat/Simstrat_v_2_2.exe"
+    simstrat_path="Simstrat_v_2_2.exe"
   }else{
     stop('No Simstrat executable available for your machine yet...')
   }
