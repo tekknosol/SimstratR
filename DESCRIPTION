@@ -1,0 +1,11 @@
+Package: SimstratR
+Type: Package
+Title: Work with Simstrat in R
+Version: 0.0.9
+Authors@R: c(person("Tadhg", "Moore", email = "tadhg.moore@dkit.ie", role = c("ctb")), person("Jorrit", "Mesman", email = "jorrit.mesman@unige.ch", role = c("aut", "cre")), person("Robert", "Ladwig", email = "rladwig2@wisc.edu", role = c("ctb")))
+Maintainer: Tadhg Moore <tadhg.moore@dkit.ie>
+Description: Run the Simstrat model within R. Comes with a compiled version of Simstrat and example files.
+License: GPL3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
