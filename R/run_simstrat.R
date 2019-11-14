@@ -19,7 +19,10 @@ run_simstrat <- function (sim_folder = ".", par_file="simstrat.par", verbose = F
 {
   
   if (.Platform$pkgType == "win.binary") {
-    return(run_simstratWin(sim_folder, par_file, verbose = verbose))
+    return(run_simstratWin(sim_folder, par_file))
+  }
+  if (.Platform$pkgType == "source") {
+    return(run_simstratNIX(sim_folder, par_file))
   }
 
   # ### macOS ###
@@ -40,7 +43,7 @@ run_simstrat <- function (sim_folder = ".", par_file="simstrat.par", verbose = F
   # }
 }
 
-run_simstratWin <- function(sim_folder,par_file="simstrat.par", verbose){
+run_simstratWin <- function(sim_folder,par_file="simstrat.par"){
   
   if(.Platform$r_arch == 'x64'){
     simstrat_path <- system.file('extbin/simstrat.exe', package = 'SimstratR') #packageName()
@@ -102,35 +105,46 @@ run_simstratWin <- function(sim_folder,par_file="simstrat.par", verbose){
 # #   })
 # # }
 # 
-# run_gotmNIX <- function(sim_folder, yaml = TRUE, yaml_file = 'gotm.yaml', verbose=TRUE, args){
-#   gotm_path <- system.file('exec/nixgotm', package=packageName())
-#   
-#   if(yaml){
-#     args <- c(args, yaml_file)
-#   }else{
-#     args <- c(args,'--read_nml')
-#   }
-#   
-#   origin <- getwd()
-#   setwd(sim_folder)
-#   Sys.setenv(LD_LIBRARY_PATH=system.file('extbin/nixgotm',
-#                                          package=packageName()))
-#   
-#   tryCatch({
-#     if (verbose){
-#       out <- system2(gotm_path, wait = TRUE, stdout = "",
-#                      stderr = "", args=args)
-#     } else {
-#       out <- system2(gotm_path, wait = TRUE, stdout = NULL,
-#                      stderr = NULL, args = args)
-#     }
-#     setwd(origin)
-#     return(out)
-#   }, error = function(err) {
-#     print(paste("GOTM_ERROR:  ",err))
-#     setwd(origin)
-#   })
-# }
+run_simstratNIX <- function(sim_folder, par_file = 'langtjern.par', verbose=TRUE){
+  simstrat_path <- system.file('exec/nixsimstrat', package= 'SimstratR')
+
+  
+  origin <- getwd()
+  setwd(sim_folder)
+  
+  tryCatch({
+    if (verbose){
+      out <- system2(simstrat_path, wait = TRUE, stdout = TRUE,
+                     stderr = "", args=par_file)
+    } else {
+      out <- system2(simstrat_path, args=par_file)
+    }
+    setwd(origin)
+    return(out)
+  }, error = function(err) {
+    print(paste("Simstrat_ERROR:  ",err))
+    setwd(origin)
+  })
+  # origin <- getwd()
+  # setwd(sim_folder)
+  # # Sys.setenv(LD_LIBRARY_PATH=system.file('extbin/nixsimstrat',
+  #                                        # package=packageName()))
+  # 
+  # tryCatch({
+  #   if (verbose){
+  #     out <- system2(simstrat_path, wait = TRUE, stdout = "",
+  #                    stderr = "", args=args)
+  #   } else {
+  #     out <- system2(simstrat_path, wait = TRUE, stdout = NULL,
+  #                    stderr = NULL, args = args)
+  #   }
+  #   setwd(origin)
+  #   return(out)
+  # }, error = function(err) {
+  #   print(paste("SIMSTRAT_ERROR:  ",err))
+  #   setwd(origin)
+  # })
+}
 # 
 # ### From GLEON/gotm3r
 # gotm.systemcall <- function(sim_folder, gotm_path, verbose, system.args) {
