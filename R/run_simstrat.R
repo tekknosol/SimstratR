@@ -21,10 +21,22 @@ run_simstrat <- function (sim_folder = ".", par_file="langtjern.par", verbose = 
   if (.Platform$pkgType == "win.binary") {
     return(run_simstratWin(sim_folder, par_file))
   }
+  ### unix-based '''
   if (.Platform$pkgType == "source") {
     return(run_simstratNIX(sim_folder, par_file))
   }
-
+  ### macOS ###
+  if (grepl('mac.binary',.Platform$pkgType)) {
+    maj_v_number <- as.numeric(strsplit(
+      Sys.info()["release"][[1]],'.', fixed = TRUE)[[1]][1])
+    
+    if (maj_v_number < 13.0) {
+      stop('pre-mavericks mac OSX is not supported. Consider upgrading')
+    }
+    
+    return(run_simstratNIX(sim_folder, par_file))
+    
+  }
   # ### macOS ###
   # if (grepl('mac.binary',.Platform$pkgType)) {
   #   maj_v_number <- as.numeric(strsplit(
@@ -125,25 +137,6 @@ run_simstratNIX <- function(sim_folder, par_file = 'langtjern.par', verbose=TRUE
     print(paste("Simstrat_ERROR:  ",err))
     setwd(origin)
   })
-  # origin <- getwd()
-  # setwd(sim_folder)
-  # # Sys.setenv(LD_LIBRARY_PATH=system.file('extbin/nixsimstrat',
-  #                                        # package=packageName()))
-  # 
-  # tryCatch({
-  #   if (verbose){
-  #     out <- system2(simstrat_path, wait = TRUE, stdout = "",
-  #                    stderr = "", args=args)
-  #   } else {
-  #     out <- system2(simstrat_path, wait = TRUE, stdout = NULL,
-  #                    stderr = NULL, args = args)
-  #   }
-  #   setwd(origin)
-  #   return(out)
-  # }, error = function(err) {
-  #   print(paste("SIMSTRAT_ERROR:  ",err))
-  #   setwd(origin)
-  # })
 }
 # 
 # ### From GLEON/gotm3r
