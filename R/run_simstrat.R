@@ -105,7 +105,7 @@ run_simstratWin <- function(sim_folder,par_file="simstrat.par"){
 # #   })
 # # }
 # 
-run_simstratNIX <- function(sim_folder, par_file = '/home/robert/Projects/AEMONJ/SimstratR/inst/extdata/langtjern.par', verbose=TRUE){
+run_simstratNIX <- function(sim_folder, par_file = 'langtjern.par', verbose=TRUE){
   simstrat_path <- system.file('exec/nixsimstrat', package= 'SimstratR')
 
   
