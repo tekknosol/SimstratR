@@ -11,7 +11,7 @@
     "Inflow salinity"     : "Sin.dat"
   },
   "Output" : {
-    "Path"  : "langtjern/Results",                         ! Path to result folder
+    "Path"  : "Results",                         ! Path to result folder
     "Depths" : 1,                                       ! Output depths can be an integer (interpreted as interval in m), a list with depths or a path to a file (containing an integer or a list)
     "Times"  : 1,                                       ! Output times can be a number (interpreted as frequency 1/days), a list with times or a path to a file (containing a number or a list)
     "OutputDepthReference": "surface",                  ! "surface": depth of output variables is referenced to lake level, "bottom": depth of output variables is referenced to lake bottom
@@ -38,8 +38,8 @@
   "Simulation" : {
     "Timestep s"                  : 86400,              ! Simulation timestep in seconds
     "Start year"                  : 1861,               ! Starting year
-    "Start d"                     : 54421,                  ! Simulation start in days since 01.01. of starting year.
-    "End d"                       : 54786,              ! Simulation end: 52959 for full historical simulation from 1861,
+    "Start d"                     : 54421,                  ! Simulation start in days since 01.01. of starting year. 
+    "End d"                       : 54786,              ! Simulation end: 52959 for full historical simulation from 1861, 
     "DisplaySimulation"           : 0,                  ! 0: No display, 1: Display when output is written, 2: Display every iteration
     "Continue from last snapshot" : false               ! If true simulation continues from last snapshot (if present in output folder). Default: false
   },
