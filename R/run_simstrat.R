@@ -15,7 +15,7 @@
 #'run_simstrat(sim_folder, par_file = 'langtjern.par')
 #'@export
 #'@importFrom utils packageName
-run_simstrat <- function (sim_folder = ".", par_file="simstrat.par", verbose = FALSE)
+run_simstrat <- function (sim_folder = ".", par_file="langtjern.par", verbose = FALSE)
 {
   
   if (.Platform$pkgType == "win.binary") {
