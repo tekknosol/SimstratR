@@ -19,7 +19,7 @@ run_simstrat <- function (sim_folder = ".", par_file="simstrat.par", verbose = F
 {
   
   if (.Platform$pkgType == "win.binary") {
-    return(run_simstratWin(sim_folder, par_file))
+    return(run_simstratWin(sim_folder, par_file, verbose = verbose))
   }
 
   # ### macOS ###
@@ -40,7 +40,7 @@ run_simstrat <- function (sim_folder = ".", par_file="simstrat.par", verbose = F
   # }
 }
 
-run_simstratWin <- function(sim_folder,par_file="simstrat.par"){
+run_simstratWin <- function(sim_folder,par_file="simstrat.par", verbose){
   
   if(.Platform$r_arch == 'x64'){
     simstrat_path <- system.file('extbin/simstrat.exe', package = 'SimstratR') #packageName()
