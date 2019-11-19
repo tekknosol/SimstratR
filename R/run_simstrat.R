@@ -26,19 +26,20 @@ run_simstrat <- function (sim_folder = ".", par_file="langtjern.par", verbose = 
   if (.Platform$pkgType == "source") {
     return(run_simstratNIX(sim_folder, par_file, verbose))
   }
+  
 
-  # ### macOS ###
-  # if (grepl('mac.binary',.Platform$pkgType)) {
-  #   maj_v_number <- as.numeric(strsplit(
-  #     Sys.info()["release"][[1]],'.', fixed = TRUE)[[1]][1])
-  # 
-  #   if (maj_v_number < 13.0) {
-  #     stop('pre-mavericks mac OSX is not supported. Consider upgrading')
-  #   }
-  # 
-  #   return(run_simstratOSx(sim_folder, par_file, verbose))
-  # 
-  # }
+  ### macOS ###
+  if (grepl('mac.binary',.Platform$pkgType)) {
+    maj_v_number <- as.numeric(strsplit(
+      Sys.info()["release"][[1]],'.', fixed = TRUE)[[1]][1])
+
+    if (maj_v_number < 13.0) {
+      stop('pre-mavericks mac OSX is not supported. Consider upgrading')
+    }
+
+    return(run_simstratOSx(sim_folder, par_file, verbose))
+
+  }
 }
 
 run_simstratWin <- function(sim_folder,par_file="simstrat.par",verbose=TRUE){
@@ -118,25 +119,28 @@ run_simstratNIX <- function(sim_folder, par_file = 'langtjern.par', verbose=TRUE
     print(paste("Simstrat_ERROR:  ",err))
     setwd(origin)
   })
-  # origin <- getwd()
-  # setwd(sim_folder)
-  # # Sys.setenv(LD_LIBRARY_PATH=system.file('extbin/nixsimstrat',
-  #                                        # package=packageName()))
-  # 
-  # tryCatch({
-  #   if (verbose){
-  #     out <- system2(simstrat_path, wait = TRUE, stdout = "",
-  #                    stderr = "", args=args)
-  #   } else {
-  #     out <- system2(simstrat_path, wait = TRUE, stdout = NULL,
-  #                    stderr = NULL, args = args)
-  #   }
-  #   setwd(origin)
-  #   return(out)
-  # }, error = function(err) {
-  #   print(paste("SIMSTRAT_ERROR:  ",err))
-  #   setwd(origin)
-  # })
+}
+
+run_simstratOSx <- function(sim_folder, par_file = 'langtjern.par', verbose=TRUE){
+  simstrat_path <- system.file('exec/simstrat', package= 'SimstratR')
+  
+  
+  origin <- getwd()
+  setwd(sim_folder)
+  
+  tryCatch({
+    if (verbose){
+      out <- system2(simstrat_path, wait = TRUE, stdout = TRUE,
+                     stderr = "", args=par_file)
+    } else {
+      out <- system2(simstrat_path, args=par_file)
+    }
+    setwd(origin)
+    return(out)
+  }, error = function(err) {
+    print(paste("Simstrat_ERROR:  ",err))
+    setwd(origin)
+  })
 }
 # 
 # ### From GLEON/gotm3r
