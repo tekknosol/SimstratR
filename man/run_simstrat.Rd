@@ -4,8 +4,7 @@
 \alias{run_simstrat}
 \title{Run the Simstrat model}
 \usage{
-run_simstrat(sim_folder = ".", par_file = "simstrat.par",
-  verbose = FALSE)
+run_simstrat(sim_folder = ".", par_file = "simstrat.par", verbose = FALSE)
 }
 \arguments{
 \item{sim_folder}{the directory where simulation files are contained}
