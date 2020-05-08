@@ -45,7 +45,7 @@ run_simstrat <- function (sim_folder = ".", par_file="langtjern.par", verbose = 
 run_simstratWin <- function(sim_folder,par_file="simstrat.par",verbose=TRUE){
   
   if(.Platform$r_arch == 'x64'){
-    simstrat_path <- system.file('extbin/simstrat.exe', package = 'SimstratR')
+    simstrat_path <- system.file('extbin/win/simstrat.exe', package = packageName())
   }else{
     stop('No Simstrat executable available for your machine yet...')
   }
@@ -101,9 +101,12 @@ run_simstratWin <- function(sim_folder,par_file="simstrat.par",verbose=TRUE){
 # }
 
 run_simstratNIX <- function(sim_folder, par_file = 'langtjern.par', verbose=TRUE){
-  simstrat_path <- system.file('exec/nixsimstrat', package= 'SimstratR')
+  simstrat_path <- system.file('exec/nixsimstrat', package= packageName())
 
-  
+  Sys.setenv(LD_LIBRARY_PATH=paste(system.file('extbin/nix', 
+                                               package=packageName()), 
+                                   Sys.getenv('LD_LIBRARY_PATH'), 
+                                   sep = ":"))
   origin <- getwd()
   setwd(sim_folder)
   
@@ -124,7 +127,7 @@ run_simstratNIX <- function(sim_folder, par_file = 'langtjern.par', verbose=TRUE
 }
 
 run_simstratOSx <- function(sim_folder, par_file = 'langtjern.par', verbose=TRUE){
-  simstrat_path <- system.file('exec/simstrat', package= 'SimstratR')
+  simstrat_path <- system.file('exec/simstrat', package= packageName())
   
   
   origin <- getwd()
