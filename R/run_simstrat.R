@@ -150,25 +150,25 @@ run_simstratOSx <- function(sim_folder, par_file = 'langtjern.par', verbose=TRUE
 }
 # 
 # ### From GLEON/gotm3r
-# gotm.systemcall <- function(sim_folder, gotm_path, verbose, system.args) {
-#   origin <- getwd()
-#   setwd(sim_folder)
-#   
-#   tryCatch({
-#     if (verbose){
-#       out <- system2(gotm_path, wait = TRUE, stdout = "",
-#                      stderr = "", args = system.args)
-#     } else {
-#       out <- system2(gotm_path, wait = TRUE, stdout = NULL,
-#                      stderr = NULL, args = system.args)
-#     }
-#     setwd(origin)
-#     return(out)
-#   }, error = function(err) {
-#     print(paste("gotm_ERROR:  ",err))
-#     setwd(origin)
-#   })
-# }
+simstrat.systemcall <- function(sim_folder, simstrat_path, verbose, system.args) {
+  origin <- getwd()
+  setwd(sim_folder)
+
+  tryCatch({
+    if (verbose){
+      out <- system2(simstrat_path, wait = TRUE, stdout = "",
+                     stderr = "", args = system.args)
+    } else {
+      out <- system2(simstrat_path, wait = TRUE, stdout = NULL,
+                     stderr = NULL, args = system.args)
+    }
+    setwd(origin)
+    return(out)
+  }, error = function(err) {
+    print(paste("simstrat_ERROR:  ",err))
+    setwd(origin)
+  })
+}
 # 
 # ### macOS ###
 # run_gotmOSx <- function(sim_folder, verbose, system.args){
