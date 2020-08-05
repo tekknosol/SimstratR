@@ -2,7 +2,7 @@ SimstratR
 ====
 
 
-R package for basic [Simstrat](https://github.com/Eawag-AppliedSystemAnalysis/Simstrat) model running. `SimstratR` holds the version compiled or downloaded from the [website](https://github.com/Eawag-AppliedSystemAnalysis/Simstrat/releases) on 2020-06-08 and should run virtually on any Windows, Linux and macOS system.  This package does not contain the source code for the model, only the executable. This package was inspired by [GLMr](https://github.com/GLEON/GLMr).
+R package for basic [Simstrat](https://github.com/Eawag-AppliedSystemAnalysis/Simstrat) model running. `SimstratR` holds the version compiled or downloaded from the [website](https://github.com/Eawag-AppliedSystemAnalysis/Simstrat/releases) on 2020-06-08 (version 2.4.1) and should run virtually on any Windows, Linux and macOS system.  This package does not contain the source code for the model, only the executable. This package was inspired by [GLMr](https://github.com/GLEON/GLMr).
 
 ## Installation
 
