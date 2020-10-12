@@ -15,18 +15,18 @@
 #'run_simstrat(sim_folder, par_file = 'langtjern.par')
 #'@export
 #'@importFrom utils packageName
-run_simstrat <- function (sim_folder = ".", par_file="langtjern.par", verbose = TRUE)
+run_simstrat <- function (sim_folder = ".", par_file="langtjern.par", verbose = FALSE)
 {
   ### Windows
   if (.Platform$pkgType == "win.binary") {
     return(run_simstratWin(sim_folder, par_file, verbose))
   }
-  
+
   ### UNIX
   if (.Platform$pkgType == "source") {
     return(run_simstratNIX(sim_folder, par_file, verbose))
   }
-  
+
 
   ### macOS ###
   if (grepl('mac.binary',.Platform$pkgType)) {
@@ -42,14 +42,14 @@ run_simstrat <- function (sim_folder = ".", par_file="langtjern.par", verbose = 
   }
 }
 
-run_simstratWin <- function(sim_folder,par_file="simstrat.par",verbose=TRUE){
-  
+run_simstratWin <- function(sim_folder,par_file="simstrat.par",verbose=verbose){
+
   if(.Platform$r_arch == 'x64'){
     simstrat_path <- system.file('extbin/win/simstrat.exe', package = packageName())
   }else{
     stop('No Simstrat executable available for your machine yet...')
   }
-  
+
   origin <- getwd()
   setwd(sim_folder)
 
@@ -58,8 +58,8 @@ run_simstratWin <- function(sim_folder,par_file="simstrat.par",verbose=TRUE){
       out <- system2(simstrat_path, wait = TRUE, stdout = TRUE,
                      stderr = "", args=par_file)
     } else {
-      out <- system2(simstrat_path, stdout = NULL,
-                     stderr =NULL,args=par_file)
+      out <- system2(simstrat_path, wait = TRUE, stdout = NULL,
+                     stderr =NULL, args=par_file)
     }
     setwd(origin)
     return(out)
@@ -69,7 +69,7 @@ run_simstratWin <- function(sim_folder,par_file="simstrat.par",verbose=TRUE){
   })
 }
 
-# run_simstratOSx <- function(sim_folder, par_file = 'langtjern.par', verbose=TRUE){
+# run_simstratOSx <- function(sim_folder, par_file = 'langtjern.par', verbose=verbose){
 #
 #   # simstrat_path <- system.file('extbinmac/simstrat.exe', package = 'SimstratR')
 #   # # File to the folder with the mac-executable for simstrat
@@ -80,7 +80,7 @@ run_simstratWin <- function(sim_folder,par_file="simstrat.par",verbose=TRUE){
 #
 #   origin <- getwd()
 #   setwd(sim_folder)
-#   
+#
 #   tryCatch({
 #     if (verbose){
 #       out <- system2(simstrat_path, wait = TRUE, stdout = "",
@@ -100,22 +100,22 @@ run_simstratWin <- function(sim_folder,par_file="simstrat.par",verbose=TRUE){
 #   })
 # }
 
-run_simstratNIX <- function(sim_folder, par_file = 'langtjern.par', verbose=TRUE){
+run_simstratNIX <- function(sim_folder, par_file = 'langtjern.par', verbose=verbose){
   simstrat_path <- system.file('exec/nixsimstrat', package= packageName())
 
-  Sys.setenv(LD_LIBRARY_PATH=paste(system.file('extbin/nix', 
-                                               package=packageName()), 
-                                   Sys.getenv('LD_LIBRARY_PATH'), 
+  Sys.setenv(LD_LIBRARY_PATH=paste(system.file('extbin/nix',
+                                               package=packageName()),
+                                   Sys.getenv('LD_LIBRARY_PATH'),
                                    sep = ":"))
   origin <- getwd()
   setwd(sim_folder)
-  
+
   tryCatch({
     if (verbose){
       out <- system2(simstrat_path, wait = TRUE, stdout = TRUE,
                      stderr = "", args=par_file)
     } else {
-      out <- system2(simstrat_path, stdout = NULL,
+      out <- system2(simstrat_path, wait = TRUE, stdout = NULL,
                      stderr =NULL,args=par_file)
     }
     setwd(origin)
@@ -126,19 +126,19 @@ run_simstratNIX <- function(sim_folder, par_file = 'langtjern.par', verbose=TRUE
   })
 }
 
-run_simstratOSx <- function(sim_folder, par_file = 'langtjern.par', verbose=TRUE){
+run_simstratOSx <- function(sim_folder, par_file = 'langtjern.par', verbose=verbose){
   simstrat_path <- system.file('exec/simstrat', package= packageName())
-  
-  
+
+
   origin <- getwd()
   setwd(sim_folder)
-  
+
   tryCatch({
     if (verbose){
       out <- system2(simstrat_path, wait = TRUE, stdout = TRUE,
                      stderr = "", args=par_file)
     } else {
-      out <- system2(simstrat_path, stdout = NULL,
+      out <- system2(simstrat_path, wait = TRUE, stdout = NULL,
                      stderr =NULL, args=par_file)
     }
     setwd(origin)
@@ -148,7 +148,7 @@ run_simstratOSx <- function(sim_folder, par_file = 'langtjern.par', verbose=TRUE
     setwd(origin)
   })
 }
-# 
+#
 # ### From GLEON/gotm3r
 simstrat.systemcall <- function(sim_folder, simstrat_path, verbose, system.args) {
   origin <- getwd()
@@ -169,7 +169,7 @@ simstrat.systemcall <- function(sim_folder, simstrat_path, verbose, system.args)
     setwd(origin)
   })
 }
-# 
+#
 # ### macOS ###
 # run_gotmOSx <- function(sim_folder, verbose, system.args){
 #   gotm_path <- system.file('exec/macgotm', package = 'GOTMr')
