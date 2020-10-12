@@ -58,8 +58,8 @@ run_simstratWin <- function(sim_folder,par_file="simstrat.par",verbose=verbose){
       out <- system2(simstrat_path, wait = TRUE, stdout = TRUE,
                      stderr = "", args=par_file)
     } else {
-      out <- system2(simstrat_path, stdout = NULL,
-                     stderr =NULL,args=par_file)
+      out <- system2(simstrat_path, wait = TRUE, stdout = NULL,
+                     stderr =NULL, args=par_file)
     }
     setwd(origin)
     return(out)
@@ -115,7 +115,7 @@ run_simstratNIX <- function(sim_folder, par_file = 'langtjern.par', verbose=verb
       out <- system2(simstrat_path, wait = TRUE, stdout = TRUE,
                      stderr = "", args=par_file)
     } else {
-      out <- system2(simstrat_path, stdout = NULL,
+      out <- system2(simstrat_path, wait = TRUE, stdout = NULL,
                      stderr =NULL,args=par_file)
     }
     setwd(origin)
@@ -138,7 +138,7 @@ run_simstratOSx <- function(sim_folder, par_file = 'langtjern.par', verbose=verb
       out <- system2(simstrat_path, wait = TRUE, stdout = TRUE,
                      stderr = "", args=par_file)
     } else {
-      out <- system2(simstrat_path, stdout = NULL,
+      out <- system2(simstrat_path, wait = TRUE, stdout = NULL,
                      stderr =NULL, args=par_file)
     }
     setwd(origin)
