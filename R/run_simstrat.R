@@ -103,10 +103,12 @@ run_simstratWin <- function(sim_folder,par_file="simstrat.par",verbose=verbose){
 run_simstratNIX <- function(sim_folder, par_file = 'langtjern.par', verbose=verbose){
   simstrat_path <- system.file('exec/nixsimstrat', package= packageName())
 
-  Sys.setenv(LD_LIBRARY_PATH=paste(system.file('extbin/nix',
-                                               package=packageName()),
-                                   Sys.getenv('LD_LIBRARY_PATH'),
-                                   sep = ":"))
+  if(nchar(Sys.getenv("SIMSTRAT_PATH")) == 0){
+    Sys.setenv(LD_LIBRARY_PATH=paste(system.file('extbin/nix',
+                                                 package=packageName()),
+                                     Sys.getenv('LD_LIBRARY_PATH'),
+                                     sep = ":"))
+  }
   origin <- getwd()
   setwd(sim_folder)
 
